@@ -1,0 +1,32 @@
+From: David@gmail.com
+To: BadGuy@gmail.com
+
+SECRET
+
+Dear BadGuy,
+
+I am pleased to inform you that our plan has been executed successfully. As we discussed, I have managed to infiltrate the organization and obtain the critical documents we need. To ensure the utmost security, I have encoded this message using the Vigenère cipher, as per your instructions. Below are the details of the operations carried out:
+
+Document Acquisition and Transmission
+After gaining the necessary access, I successfully extracted the required documents from their secure servers. These documents contain highly sensitive information that is crucial for our next steps. Given the security measures in place, it was imperative to use a secure method to transmit these files to you without raising any suspicions.
+
+Vigenère Cipher Usage
+To ensure that this email remains confidential, I have used the Vigenère cipher to encode the message. As you are aware, the Vigenère cipher is a method of encrypting alphabetic text by using a simple form of polyalphabetic substitution. Here’s a brief explanation of how the encryption was carried out:
+
+Key Selection: We agreed upon the key "INTRUSION" for the encryption process.
+Message Encryption: Each letter of the plaintext was shifted according to the corresponding letter in the key, repeating the key as necessary to match the length of the message.
+Encoded Message: The resulting ciphertext is a scrambled version of the original text, ensuring that anyone intercepting this email will be unable to read it without the key.
+Delivery of Stolen Documents
+The stolen documents have been securely uploaded to the server we discussed. I used an HTTP POST request to transmit the files to the specified endpoint. Here are the details:
+
+Server: https://ONEFIVESEVEN.TWOFOURFIVE.TWOFOURTHREE.ONEEIGHTONE/
+Endpoint: /upload
+Method: POST
+Data: The files were sent as multipart/form-data to ensure proper handling.
+Parameter: I included the username parameter as part of the request to authenticate the upload. The username used was "BlackHat2024".
+Confirmation and Next Steps and of course the password.
+Please confirm the receipt of the documents at your earliest convenience. I will continue to maintain my cover within the organization to provide any additional information or carry out further tasks as needed. Our next steps will involve analyzing the obtained data and planning our subsequent moves based on the insights gained.
+
+i sure hope that the zionists wont delete the content of the website...
+
+PS, did you changed your password for "badguyrulz4ever"? "adminadmin" didn't work for me..

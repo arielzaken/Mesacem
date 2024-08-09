@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>badGuy's Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            background-size: cover;
+            background-repeat: repeat;
+        }
+        h1 {
+            color: #ff5733;
+            margin-top: 20px;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .description {
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ff5733;
+            border-radius: 10px;
+            background-color: #222;
+            text-align: center;
+        }
+        form {
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ff5733;
+            border-radius: 10px;
+            background-color: #333;
+            display: inline-block;
+            max-width: 600px;
+            width: 100%;
+        }
+        input[type="text"], input[type="file"], input[type="password"], input[type="submit"] {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #444;
+            color: #fff;
+        }
+        input[type="text"], input[type="file"], input[type="password"] {
+            width: calc(100% - 22px);
+        }
+        input[type="submit"] {
+            background-color: #ff5733;
+            color: #fff;
+            cursor: pointer;
+        }
+        .file-list {
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ff5733;
+            border-radius: 10px;
+            background-color: #333;
+            display: inline-block;
+            max-width: 800px;
+            width: 100%;
+            text-align: left;
+        }
+        .file-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .file-list li {
+            margin: 10px 0;
+        }
+        .file-list a {
+            color: #ff5733;
+            text-decoration: none;
+        }
+        .file-list a:hover {
+            text-decoration: underline;
+        }
+        #message {
+            color: #ff5733;
+            margin-top: 20px;
+        }
+        #auth-form {
+            display: none;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ff5733;
+            border-radius: 10px;
+            background-color: #333;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+        }
+        #close-auth-form {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff5733;
+            color: #fff;
+            cursor: pointer;
+        }
+        #download-btn {
+            margin: 20px auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff5733;
+            color: #fff;
+            cursor: pointer;
+        }
+        #file-counter {
+            margin: 20px auto;
+            padding: 10px 20px;
+            border: 2px solid #ff5733;
+            border-radius: 10px;
+            background-color: #222;
+            max-width: 200px;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>badGuy's Website</h1>
+        <div class="description">
+            <p>
+                Dive into documents that expose hidden truths and challenge the status quo. Here, you’ll find elusive information meant to spark debate and reveal what's often kept in the dark. 
+            </p>
+            <b>Disclaimer: This site offers provocative content against zion. Use responsibly.</b>
+        </div>
+        <form id="upload-form" enctype="multipart/form-data">
+            <label for="file">Choose file:</label>
+            <input type="file" name="file" id="file" accept=".pdf" required>
+            <br>
+            <input type="submit" value="Upload">
+        </form>
+        <button id="download-btn">Download File List</button>
+        <div id="message"></div>
+        <div id="auth-form">
+            <h3>Authentication Required</h3>
+            <form id="auth-form-content">
+                <label for="auth-username">Username:</label>
+                <input type="text" id="auth-username" required>
+                <br>
+                <label for="auth-password">Password:</label>
+                <input type="password" id="auth-password" required>
+                <br>
+                <input type="hidden" id="delete-filename">
+                <input type="submit" value="Confirm Delete">
+            </form>
+            <div id="auth-message"></div>
+            <button id="close-auth-form">Close</button>
+        </div>
+        <h2>Uploaded Files</h2>
+        <div id="file-counter">Files Uploaded: 0</div>
+        <div class="file-list">
+            <ul id="file-list">
+                <!-- File list will be dynamically generated -->
+            </ul>
+        </div>
+    </div>
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData();
+            formData.append('file', document.getElementById('file').files[0]);
+
+            document.getElementById('message').innerText = "sorry - under construction...";
+        });
+
+        function fetchFileList() {
+            fetch('/files').then(response => response.json()).then(files => {
+                const fileList = document.getElementById('file-list');
+                const fileCounter = document.getElementById('file-counter');
+                fileList.innerHTML = '';
+
+                if (files.length === 0) {
+                    fileList.innerHTML = '<li><b>     You WIN!!!!</b></li>';
+                    fileCounter.innerText = 'Files Uploaded: 0';
+                } else {
+                    files.forEach(file => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `<a href="/uploads/${file}" target="_blank">${file}</a> - <a href="#" data-filename="${file}" class="delete-file">Delete</a>`;
+                        fileList.appendChild(listItem);
+                    });
+
+                    fileCounter.innerText = `Files Uploaded: ${files.length}`;
+                }
+
+                document.querySelectorAll('.delete-file').forEach(button => {
+                    button.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        const filename = this.getAttribute('data-filename');
+                        document.getElementById('delete-filename').value = filename;
+                        document.getElementById('auth-form').style.display = 'block';
+                    });
+                });
+            });
+        }
+
+        document.getElementById('auth-form-content').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData();
+            formData.append('username', document.getElementById('auth-username').value);
+            formData.append('password', document.getElementById('auth-password').value);
+            formData.append('filename', document.getElementById('delete-filename').value);
+
+            fetch('/delete', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    return response.text().then(errorText => {
+                        throw new Error(errorText);
+                    });
+                }
+            })
+            .then(data => {
+                document.getElementById('auth-message').innerText = data;
+                fetchFileList();
+                document.getElementById('auth-form').style.display = 'none';
+            })
+            .catch(error => {
+                document.getElementById('auth-message').innerText = `Error: ${error.message}`;
+            });
+        });
+
+        document.getElementById('download-btn').addEventListener('click', function() {
+            fetch('/files')
+                .then(response => response.json())
+                .then(files => {
+                    const fileContent = files.join('\n');
+                    const blob = new Blob([fileContent], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'uploaded_files.txt';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                });
+        });
+
+        document.getElementById('close-auth-form').addEventListener('click', function() {
+            document.getElementById('auth-form').style.display = 'none';
+        });
+
+        document.addEventListener('DOMContentLoaded', fetchFileList);
+    </script>
+</body>
+</html>
